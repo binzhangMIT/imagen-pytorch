@@ -409,6 +409,7 @@ class PerceiverAttention(nn.Module):
 
         # the paper differs from Perceiver in which they also concat the key / values derived from the latents to be attended to
         kv_input = torch.cat((x, latents), dim = -2)
+        # kv_input has a different dimension from latents, but you can still transform to the output k,v with the same dimension as q. 
         k, v = self.to_kv(kv_input).chunk(2, dim = -1)
 
         q, k, v = map(lambda t: rearrange(t, 'b n (h d) -> b h n d', h = h), (q, k, v))
