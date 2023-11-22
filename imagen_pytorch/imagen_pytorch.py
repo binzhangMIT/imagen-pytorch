@@ -339,6 +339,7 @@ class LayerNorm(nn.Module):
         var = torch.var(x, dim = dim, unbiased = False, keepdim = True)
         mean = torch.mean(x, dim = dim, keepdim = True)
 
+# seems like that this should be (x-mean)/(var+eps).rsqrt(); normalization should divide the variance rather than multiply.
         return (x - mean) * (var + eps).rsqrt().type(dtype) * self.g.type(dtype)
 
 ChanLayerNorm = partial(LayerNorm, dim = -3)
