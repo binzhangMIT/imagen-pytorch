@@ -746,6 +746,8 @@ class ResnetBlock(nn.Module):
             assert exists(cond)
             h = rearrange(h, 'b c h w -> b h w c')
             h, ps = pack([h], 'b * c')
+            # not really sure what the cross attenion is. It is not really the cross attention for text embedding mention in the Imagen paper. 
+            # The cross attention was taken care of by the Transformer class. 
             h = self.cross_attn(h, context = cond) + h
             h, = unpack(h, ps, 'b * c')
             h = rearrange(h, 'b h w c -> b c h w')
