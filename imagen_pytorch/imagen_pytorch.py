@@ -405,6 +405,7 @@ class PerceiverAttention(nn.Module):
 
         b, h = x.shape[0], self.heads
 
+        # we are using latents (not x) as the query. This basically is pooling and reducing the dimension of x into q. 
         q = self.to_q(latents)
 
         # the paper differs from Perceiver in which they also concat the key / values derived from the latents to be attended to
