@@ -478,6 +478,8 @@ class PerceiverResampler(nn.Module):
         n, device = x.shape[1], x.device
         pos_emb = self.pos_emb(torch.arange(n, device = device))
 
+        # My guess for the use of positional embedding is that we are reducing x with size n into latents of the same size. 
+        # You want to make sure that the latents somehow retain part of the length information. 
         x_with_pos = x + pos_emb
 
         latents = repeat(self.latents, 'n d -> b n d', b = x.shape[0])
