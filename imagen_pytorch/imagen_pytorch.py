@@ -1203,6 +1203,7 @@ class Unet(nn.Module):
         dims = [init_dim, *map(lambda m: dim * m, dim_mults)]
         in_out = list(zip(dims[:-1], dims[1:]))
 
+        # why do we need three time transformations: conditioning, hiddens, and tokens? 
         # time conditioning
 
         cond_dim = default(cond_dim, dim)
